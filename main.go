@@ -14,7 +14,7 @@ import (
 
 func main() {
 	fSet := flag.NewFlagSet("", flag.ExitOnError)
-	cfgPath := fSet.String("config", "./config/config.toml", "path to config file")
+	cfgPath := fSet.String("config", "./config.toml", "path to config file")
 
 	err := fSet.Parse(os.Args[1:])
 	if err != nil {
