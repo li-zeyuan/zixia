@@ -3,9 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/li-zeyuan/zixia/config"
+	"github.com/li-zeyuan/zixia/task"
 )
 
 func main() {
@@ -19,5 +23,15 @@ func main() {
 	}
 
 	config.NewCfg(*cfgPath)
+	task.New()
 
+	var sigChan = make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	for {
+		select {
+		case <-sigChan:
+			log.Println("received SIGTERM, gracefully exit...")
+			return
+		}
+	}
 }

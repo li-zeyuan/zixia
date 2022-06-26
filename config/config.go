@@ -12,6 +12,7 @@ type Config struct {
 	Key             string `toml:"key"`
 	TransitDataPath string `toml:"transit_data_path"`
 	DrivingDataPath string `toml:"driving_data_path"`
+	DrivingTask     string `toml:"driving_task"`
 }
 
 func NewCfg(cfgPath string) {

@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/BurntSushi/toml v1.1.0
 	github.com/google/go-querystring v1.1.0
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/stretchr/testify v1.7.0
 	github.com/xuri/excelize/v2 v2.6.0
 )

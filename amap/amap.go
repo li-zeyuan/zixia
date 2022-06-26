@@ -16,11 +16,11 @@ const (
 	drivingUrl = "https://restapi.amap.com/v3/direction/driving?%s"
 )
 
-func DrivingRequest(req *model.DrivingReq) (*model.DrivingResp, error) {
+func DrivingRequest(req *model.DrivingReq) (string, error) {
 	v, err := query.Values(req)
 	if err != nil {
 		log.Println("struct to query values error: ", err)
-		return nil, err
+		return "", err
 	}
 	resp, err := http.Get(fmt.Sprintf(drivingUrl, v.Encode()))
 	defer func() {
@@ -30,25 +30,29 @@ func DrivingRequest(req *model.DrivingReq) (*model.DrivingResp, error) {
 	}()
 	if err != nil {
 		log.Println(err)
-		return nil, err
+		return "", err
 	}
 	if resp.StatusCode != 200 {
 		log.Println("status code: ", resp.StatusCode)
-		return nil, errors.New("driving request status code not 200")
+		return "", errors.New("driving request status code not 200")
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Println("read all error: ", err)
-		return nil, err
+		return "", err
 	}
 
 	drivingResp := new(model.DrivingResp)
 	err = json.Unmarshal(body, drivingResp)
 	if err != nil {
 		log.Println("json unmarshal driving response error: ", err)
-		return nil, err
+		return "", err
 	}
 
-	return drivingResp, nil
+	if len(drivingResp.Route.Paths) == 0 {
+		return "", errors.New("driving route path not found")
+	}
+
+	return drivingResp.Route.Paths[0].Duration, nil
 }

@@ -12,7 +12,7 @@ func TestNew(t *testing.T) {
 		DrivingDataPath: "../data/21bus.xlsx",
 	}
 
-	e, err := New(cfg)
+	e, err := NewDriving(cfg)
 	assert.Nil(t, err)
 	t.Log(e)
 }
