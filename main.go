@@ -13,7 +13,7 @@ import (
 )
 
 /*
-build: GOARCH=amd64 GOOS=linux go build -o ./bin/zixia-win-v2 main.go
+build: GOARCH="amd64" GOOS="windows" go build -o ./bin/zixia-win-v2.exe main.go
 */
 func main() {
 	fSet := flag.NewFlagSet("", flag.ExitOnError)
