@@ -91,7 +91,7 @@ func (t *TransitExcel) Handle() error {
 		}
 	}
 
-	log.Println("宝 transit handle progress: done")
+	log.Println("【宝】 transit handle progress: 100%")
 	return nil
 }
 

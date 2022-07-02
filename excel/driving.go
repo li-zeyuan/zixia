@@ -89,7 +89,7 @@ func (e *DrivingExcel) Handle() error {
 		}
 	}
 
-	log.Println("宝 driving handle progress: done")
+	log.Println("【宝】 driving handle progress: 100%")
 	return nil
 }
 
