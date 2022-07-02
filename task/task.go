@@ -2,6 +2,7 @@ package task
 
 import (
 	"log"
+	"time"
 
 	"github.com/li-zeyuan/zixia/config"
 	"github.com/li-zeyuan/zixia/excel"
@@ -9,11 +10,10 @@ import (
 )
 
 func New() {
-	img2txt("./.zixia.png",
-		150, []string{"*", "%", "+", ",", ".", " "}, "\n", "./zixia")
+	img2txt("./.zixia.png", 150, []string{"*", "%", "+", ",", ".", " "}, "\n", "./zixia")
+	time.Sleep(10 * time.Second)
 
 	c := cron.New()
-
 	if config.Conf.Driving.Task == "once" {
 		drivingHandle()
 	} else if len(config.Conf.Driving.Task) > 0 {
