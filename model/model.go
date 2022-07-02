@@ -31,3 +31,38 @@ type DrivingRoutePathResp struct {
 	Restriction   string        `json:"restriction"`
 	TrafficLights string        `json:"traffic_lights"`
 }
+
+type TransitReq struct {
+	Key         string `url:"key"`
+	Origin      string `url:"origin"`
+	Destination string `url:"destination"`
+	City        string `url:"city"`
+	Date        string `url:"date"`
+	Time        string `url:"time"`
+}
+
+type TransitResp struct {
+	Status   string           `json:"status"`
+	Info     string           `json:"info"`
+	Infocode string           `json:"infocode"`
+	Count    string           `json:"count"`
+	Route    TransitRouteResp `json:"route"`
+}
+
+type TransitRouteResp struct {
+	Origin      string                 `json:"origin"`
+	Destination string                 `json:"destination"`
+	Distance    string                 `json:"distance"`
+	TaxiCost    string                 `json:"taxi_cost"`
+	Transits    []*TransitRouteTransit `json:"transits"`
+}
+
+type TransitRouteTransit struct {
+	Cost            string        `json:"cost"`
+	Duration        string        `json:"duration"`
+	Nightflag       string        `json:"nightflag"`
+	WalkingDistance string        `json:"walking_distance"`
+	Distance        string        `json:"distance"`
+	Missed          string        `json:"missed"`
+	Segments        []interface{} `json:"segments"`
+}

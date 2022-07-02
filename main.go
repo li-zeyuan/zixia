@@ -12,6 +12,9 @@ import (
 	"github.com/li-zeyuan/zixia/task"
 )
 
+/*
+build: GOARCH=amd64 GOOS=linux go build -o ./bin/zixia-win-v2 main.go
+*/
 func main() {
 	fSet := flag.NewFlagSet("", flag.ExitOnError)
 	cfgPath := fSet.String("config", "./config.toml", "path to config file")

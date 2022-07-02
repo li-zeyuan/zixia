@@ -1,3 +1,8 @@
 package excel
 
-const defaultWriteSheet = "Sheet1"
+const (
+	defaultDrivingTitleNum = 7
+	drivingTitleDuration   = "duration"
+	drivingTitleComment    = "comment"
+	defaultWriteSheet      = "Sheet1"
+)
