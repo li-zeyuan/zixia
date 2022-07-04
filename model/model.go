@@ -36,9 +36,11 @@ type TransitReq struct {
 	Key         string `url:"key"`
 	Origin      string `url:"origin"`
 	Destination string `url:"destination"`
-	City        string `url:"city"`
+	City1       string `url:"city1"`
+	City2       string `url:"city2"`
 	Date        string `url:"date"`
 	Time        string `url:"time"`
+	ShowFields  string `url:"show_fields"`
 }
 
 type TransitResp struct {
@@ -58,11 +60,14 @@ type TransitRouteResp struct {
 }
 
 type TransitRouteTransit struct {
-	Cost            string        `json:"cost"`
-	Duration        string        `json:"duration"`
-	Nightflag       string        `json:"nightflag"`
-	WalkingDistance string        `json:"walking_distance"`
-	Distance        string        `json:"distance"`
-	Missed          string        `json:"missed"`
-	Segments        []interface{} `json:"segments"`
+	Cost            TransitRouteTransitCost `json:"cost"`
+	Nightflag       string                  `json:"nightflag"`
+	WalkingDistance string                  `json:"walking_distance"`
+	Distance        string                  `json:"distance"`
+	Missed          string                  `json:"missed"`
+	Segments        []interface{}           `json:"segments"`
+}
+
+type TransitRouteTransitCost struct {
+	Duration string `json:"duration"`
 }

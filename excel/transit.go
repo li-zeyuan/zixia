@@ -67,7 +67,8 @@ func (t *TransitExcel) Handle() error {
 		// 经度,纬度
 		TransitReq.Origin = strings.Join([]string{row[4], row[3]}, ",")
 		TransitReq.Destination = strings.Join([]string{row[6], row[5]}, ",")
-		TransitReq.City = t.cfg.Transit.City
+		TransitReq.City1 = t.cfg.Transit.City
+		TransitReq.City2 = t.cfg.Transit.City
 		TransitReq.Date = t.cfg.Transit.Date
 		TransitReq.Time = t.cfg.Transit.Time
 		duration, err := amap.TransitRequest(TransitReq)

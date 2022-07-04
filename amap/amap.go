@@ -19,7 +19,7 @@ var (
 const (
 	queryNumExceedLimit = 10003
 	drivingUrl          = "https://restapi.amap.com/v3/direction/driving?%s"
-	transitUrl          = "https://restapi.amap.com/v3/direction/transit/integrated?%s"
+	transitUrl          = "https://restapi.amap.com/v5/direction/transit/integrated?%s"
 )
 
 func DrivingRequest(req *model.DrivingReq) (string, error) {
@@ -56,11 +56,12 @@ func DrivingRequest(req *model.DrivingReq) (string, error) {
 	drivingResp := new(model.DrivingResp)
 	err = json.Unmarshal(body, drivingResp)
 	if err != nil {
-		log.Println("json unmarshal driving response error: ", err)
+		log.Printf("req: %+v, json unmarshal driving response error: %s\n", req, err.Error())
 		return "", err
 	}
 
 	if len(drivingResp.Route.Paths) == 0 {
+		log.Printf("req: %+v", req)
 		return "", errors.New("driving route path not found")
 	}
 
@@ -68,6 +69,7 @@ func DrivingRequest(req *model.DrivingReq) (string, error) {
 }
 
 func TransitRequest(req *model.TransitReq) (string, error) {
+	req.ShowFields = "cost"
 	v, err := query.Values(req)
 	if err != nil {
 		log.Println("struct to query values error: ", err)
@@ -109,5 +111,5 @@ func TransitRequest(req *model.TransitReq) (string, error) {
 		return "", errors.New("transit route path not found")
 	}
 
-	return drivingResp.Route.Transits[0].Duration, nil
+	return drivingResp.Route.Transits[0].Cost.Duration, nil
 }
