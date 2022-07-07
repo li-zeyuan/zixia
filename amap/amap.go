@@ -13,13 +13,14 @@ import (
 )
 
 var (
-	ErrQueryNumExceedLimit = errors.New("宝 Requests over the limit, come back tomorrow")
+	ErrQueryNumExceedLimit = errors.New("【宝】 😘Requests over the limit, come back tomorrow")
 )
 
 const (
-	queryNumExceedLimit = 10003
-	drivingUrl          = "https://restapi.amap.com/v3/direction/driving?%s"
-	transitUrl          = "https://restapi.amap.com/v5/direction/transit/integrated?%s"
+	queryNumExceedLimit        = "10044"
+	queryDrivingNumExceedLimit = 10003
+	drivingUrl                 = "https://restapi.amap.com/v3/direction/driving?%s"
+	transitUrl                 = "https://restapi.amap.com/v5/direction/transit/integrated?%s"
 )
 
 func DrivingRequest(req *model.DrivingReq) (string, error) {
@@ -39,7 +40,7 @@ func DrivingRequest(req *model.DrivingReq) (string, error) {
 		return "", err
 	}
 
-	if resp.StatusCode == queryNumExceedLimit {
+	if resp.StatusCode == queryDrivingNumExceedLimit {
 		return "", ErrQueryNumExceedLimit
 	}
 	if resp.StatusCode != 200 {
@@ -86,9 +87,6 @@ func TransitRequest(req *model.TransitReq) (string, error) {
 		return "", err
 	}
 
-	if resp.StatusCode == queryNumExceedLimit {
-		return "", ErrQueryNumExceedLimit
-	}
 	if resp.StatusCode != 200 {
 		log.Println("status code: ", resp.StatusCode)
 		return "", errors.New("transit request status code not 200")
@@ -107,6 +105,9 @@ func TransitRequest(req *model.TransitReq) (string, error) {
 		return "", err
 	}
 
+	if drivingResp.Infocode == queryNumExceedLimit {
+		return "", ErrQueryNumExceedLimit
+	}
 	if len(drivingResp.Route.Transits) == 0 {
 		return "", errors.New("transit route path not found")
 	}
